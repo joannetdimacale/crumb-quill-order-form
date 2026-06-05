@@ -3,27 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crumb & Quill | Order Form</title>
+  <title>Crumb & Quill | Preorder</title>
+  <meta name="description" content="Crumb & Quill preorder form for small-batch bakes." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Gochi+Hand&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="doodle-layer" aria-hidden="true">
+    <span class="doodle d1">♡</span>
+    <span class="doodle d2">✦</span>
+    <span class="doodle d3">◌</span>
+    <span class="doodle d4">✧</span>
+    <span class="doodle d5">☕</span>
+    <span class="doodle d6">♡</span>
+  </div>
+
+  <section id="welcome-screen" class="welcome-screen" aria-label="Welcome">
+    <div class="welcome-card">
+      <img src="assets/crumb-quill-logo.png" alt="Crumb & Quill Artisan Provisions" class="welcome-logo" />
+      <p class="welcome-kicker">Small-batch bakes made fresh per preorder.</p>
+      <div class="welcome-schedule">
+        <span>Orders: Sun–Tue</span>
+        <span>Bake day: Thu</span>
+        <span>Pick-up / Delivery: Fri</span>
+      </div>
+      <button type="button" id="enter-btn" class="enter-btn">Reserve a Box</button>
+      <p class="welcome-note">Limited slots only. 50% downpayment reserves your order.</p>
+    </div>
+  </section>
+
   <main class="page-shell">
     <section class="hero">
-      <div class="brand-mark" aria-hidden="true">✦</div>
-      <p class="eyebrow">Artisan Provisions</p>
-      <h1>Crumb &amp; Quill</h1>
-      <p class="script">Soft Launch Menu</p>
+      <img src="assets/crumb-quill-logo.png" alt="Crumb & Quill Artisan Provisions" class="brand-logo" />
       <p class="tagline">Small-batch bakes made fresh per preorder.</p>
       <p class="brand-line">Made gently. Consumed aggressively. ♡</p>
     </section>
 
-    <section class="schedule-card">
-      <div><span class="schedule-icon">♡</span><strong>Orders open</strong><p>Sunday – Tuesday</p></div>
-      <div><span class="schedule-icon">✧</span><strong>Bake day</strong><p>Thursday</p></div>
-      <div><span class="schedule-icon">▣</span><strong>Pick-up / Delivery</strong><p>Friday</p></div>
+    <section class="schedule-card" aria-label="Preorder schedule">
+      <div>
+        <span class="schedule-icon">♡</span>
+        <strong>Orders open</strong>
+        <p>Sunday – Tuesday</p>
+      </div>
+      <div>
+        <span class="schedule-icon">✧</span>
+        <strong>Bake day</strong>
+        <p>Thursday</p>
+      </div>
+      <div>
+        <span class="schedule-icon">▣</span>
+        <strong>Pick-up / Delivery</strong>
+        <p>Friday only</p>
+      </div>
     </section>
 
     <form id="order-form" class="order-form" novalidate>
@@ -32,76 +65,182 @@
       <input type="hidden" name="estimated_total" id="order-total-field" />
 
       <section class="form-section">
-        <div class="section-heading"><span>01</span><h2>Your details</h2></div>
+        <div class="section-heading">
+          <span>01</span>
+          <h2>Your details</h2>
+        </div>
+
         <div class="grid two">
-          <label>Name *<input type="text" name="customer_name" placeholder="Your full name" required /></label>
-          <label>Contact number *<input type="tel" name="contact_number" placeholder="09xx xxx xxxx" required /></label>
-          <label>Facebook / Instagram handle<input type="text" name="social_handle" placeholder="@yourhandle" /></label>
-          <label>Email<input type="email" name="email" placeholder="Optional, for confirmation copy" /></label>
+          <label>
+            Name *
+            <input type="text" name="customer_name" placeholder="Your full name" required />
+          </label>
+
+          <label>
+            Contact number *
+            <input type="tel" name="contact_number" placeholder="09xx xxx xxxx" required />
+          </label>
+
+          <label>
+            Facebook / Instagram handle
+            <input type="text" name="social_handle" placeholder="@yourhandle" />
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="email" placeholder="Optional, for confirmation copy" />
+          </label>
         </div>
       </section>
 
       <section class="form-section">
-        <div class="section-heading"><span>02</span><h2>Choose your box</h2></div>
+        <div class="section-heading">
+          <span>02</span>
+          <h2>Choose your box</h2>
+        </div>
 
         <div class="menu-group">
-          <div class="menu-title"><p class="menu-kicker">Box of 6 — 50g each</p><h3>Cookies</h3></div>
+          <div class="menu-title">
+            <div>
+              <p class="menu-kicker">Box of 6 — 50g each</p>
+              <h3>Cookies</h3>
+            </div>
+          </div>
           <div class="product-grid" id="cookies-grid"></div>
         </div>
 
         <div class="menu-group">
-          <div class="menu-title"><p class="menu-kicker">Medium rolls with cream cheese glaze</p><h3>Cinnamon Rolls</h3></div>
+          <div class="menu-title">
+            <div>
+              <p class="menu-kicker">Medium rolls with cream cheese glaze</p>
+              <h3>Cinnamon Rolls</h3>
+            </div>
+          </div>
           <div class="product-grid" id="rolls-grid"></div>
         </div>
 
         <div class="menu-group">
-          <div class="menu-title"><p class="menu-kicker">Cream cheese frosting, cinnamon dust & walnut crumble</p><h3>Banana Cupcakes</h3></div>
+          <div class="menu-title">
+            <div>
+              <p class="menu-kicker">Cream cheese frosting, cinnamon dust & walnut crumble</p>
+              <h3>Banana Cupcakes</h3>
+            </div>
+          </div>
           <div class="product-grid" id="cupcakes-grid"></div>
         </div>
 
         <div class="menu-group flavor-week">
-          <div><p class="menu-kicker">Optional</p><h3>Flavor of the Week</h3><p>Add this later when you want to feature a special drop.</p></div>
-          <label class="toggle-line"><input type="checkbox" name="interested_flavor_of_week" value="Yes" /> Notify me if there is a flavor of the week.</label>
+          <div>
+            <p class="menu-kicker">Optional weekly drop</p>
+            <h3>Flavor of the Week</h3>
+            <p id="flavor-week-copy">No special drop announced yet. Check this if you want to be notified when one is available.</p>
+          </div>
+          <label class="toggle-line">
+            <input type="checkbox" name="interested_flavor_of_week" value="Yes" />
+            Notify me if there is a flavor of the week.
+          </label>
         </div>
       </section>
 
       <section class="form-section">
-        <div class="section-heading"><span>03</span><h2>Pickup / delivery</h2></div>
+        <div class="section-heading">
+          <span>03</span>
+          <h2>Pickup / delivery</h2>
+        </div>
+
         <div class="grid two">
-          <label>Fulfillment *
+          <label>
+            Fulfillment *
             <select name="fulfillment" id="fulfillment" required>
-              <option value="">Select one</option><option value="Pickup">Pickup</option><option value="Delivery">Delivery</option>
+              <option value="">Select one</option>
+              <option value="Pickup">Pickup</option>
+              <option value="Delivery">Delivery</option>
             </select>
           </label>
-          <label>Preferred Friday date *<input type="date" name="preferred_date" required /></label>
+
+          <label>
+            Preferred Friday slot *
+            <select name="preferred_friday_date" id="preferred-date" required>
+              <option value="">Select a Friday</option>
+            </select>
+          </label>
         </div>
-        <label id="delivery-address-wrap" class="hidden">Delivery address<textarea name="delivery_address" rows="3" placeholder="Complete address / landmark"></textarea></label>
-        <label>Notes / requests<textarea name="special_requests" rows="4" placeholder="Allergies, dedication note, preferred time, or anything you need us to know."></textarea></label>
+
+        <p class="field-note">Pick-up / delivery is scheduled on Fridays only. Need a later Friday? Add it in notes.</p>
+
+        <label id="delivery-address-wrap" class="hidden">
+          Delivery address
+          <textarea name="delivery_address" rows="3" placeholder="Complete address / landmark"></textarea>
+        </label>
+
+        <label>
+          Notes / requests
+          <textarea name="special_requests" rows="4" placeholder="Allergies, dedication note, preferred time, or anything you need us to know."></textarea>
+        </label>
       </section>
 
       <section class="form-section">
-        <div class="section-heading"><span>04</span><h2>Payment</h2></div>
+        <div class="section-heading">
+          <span>04</span>
+          <h2>Payment</h2>
+        </div>
+
+        <div class="payment-note">
+          <strong>50% downpayment is required to reserve your slot.</strong>
+          <span>The remaining balance may be paid upon pick-up/delivery. Please wait for confirmation before sending payment.</span>
+        </div>
+
         <div class="grid two">
-          <label>Payment method *
+          <label>
+            Preferred payment method *
             <select name="payment_method" required>
-              <option value="">Select one</option><option value="GCash">GCash</option><option value="BPI">BPI</option><option value="Cash on pickup">Cash on pickup</option><option value="To be confirmed">To be confirmed</option>
+              <option value="">Select one</option>
+              <option value="GCash">GCash</option>
+              <option value="BPI">BPI</option>
+              <option value="Cash balance after downpayment">Cash balance after downpayment</option>
+              <option value="To be confirmed">To be confirmed</option>
             </select>
           </label>
-          <label>Proof of payment link / reference<input type="text" name="payment_reference" placeholder="Paste link or reference number if available" /></label>
+
+          <label>
+            Proof of payment link / reference
+            <input type="text" name="payment_reference" placeholder="Optional — send after confirmation if needed" />
+          </label>
         </div>
-        <div class="notice"><strong>Note:</strong> Limited slots only. Your order is confirmed once availability and payment details are verified.</div>
+
+        <div class="notice">
+          <strong>Note:</strong> Orders are confirmed only after slot availability and 50% downpayment are verified.
+        </div>
       </section>
 
       <aside class="summary-card">
-        <div><p class="menu-kicker">Order summary</p><h2>Your box list</h2></div>
+        <div>
+          <p class="menu-kicker">Order summary</p>
+          <h2>Your box list</h2>
+        </div>
         <div id="order-summary" class="summary-empty">No boxes selected yet.</div>
-        <div class="total-line"><span>Estimated total</span><strong id="order-total">₱0</strong></div>
+        <div class="total-line">
+          <span>Estimated total</span>
+          <strong id="order-total">₱0</strong>
+        </div>
+        <div class="downpayment-line">
+          <span>Required 50% downpayment</span>
+          <strong id="order-downpayment">₱0</strong>
+        </div>
       </aside>
 
-      <label class="agreement"><input type="checkbox" name="agreement" required /> I understand this is a preorder and my slot is confirmed after Crumb &amp; Quill verifies my order.</label>
-      <div class="form-actions"><button type="submit" id="submit-btn">Submit order</button><p id="form-status" role="status" aria-live="polite"></p></div>
+      <label class="agreement">
+        <input type="checkbox" name="agreement" required />
+        I understand this is a preorder and my slot is confirmed after Crumb &amp; Quill verifies my order and 50% downpayment.
+      </label>
+
+      <div class="form-actions">
+        <button type="submit" id="submit-btn">Submit order</button>
+        <p id="form-status" role="status" aria-live="polite"></p>
+      </div>
     </form>
   </main>
+
   <script src="script.js"></script>
 </body>
 </html>
