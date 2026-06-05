@@ -18,7 +18,6 @@ Upload these to the GitHub repository root:
 - `index.html`
 - `styles.css`
 - `script.js`
-- `crumb-quill-logo.png`
 - `README.md`
 
 ## Formspree
