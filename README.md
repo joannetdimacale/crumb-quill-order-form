@@ -18,7 +18,7 @@ Upload these to the GitHub repository root:
 - `index.html`
 - `styles.css`
 - `script.js`
-- `assets/crumb-quill-logo.png`
+- `crumb-quill-logo.png`
 - `README.md`
 
 ## Formspree
@@ -38,3 +38,7 @@ Example product:
 
 ## GitHub Pages
 After uploading changes, GitHub Pages may need 1–3 minutes to rebuild.
+
+
+## v2.1 logo fix
+The logo file is now in the root folder as `crumb-quill-logo.png` so the page can load it more reliably on GitHub Pages.
