@@ -18,6 +18,7 @@ Upload these to the GitHub repository root:
 - `index.html`
 - `styles.css`
 - `script.js`
+- `crumb-quill-logo.png`
 - `README.md`
 
 ## Formspree
@@ -41,3 +42,12 @@ After uploading changes, GitHub Pages may need 1–3 minutes to rebuild.
 
 ## v2.1 logo fix
 The logo file is now in the root folder as `crumb-quill-logo.png` so the page can load it more reliably on GitHub Pages.
+
+
+## v3 menu update
+Added:
+- Strawberry Matcha Cloud — ₱649
+- The Biscoff Affair — ₱699
+- Signature Assorted Box, 3 Matcha + 3 Biscoff — ₱679
+- Cookie Dough Cinnamon Roll, Box of 4 — ₱549
+- Cookie Dough Cinnamon Roll, Box of 6 — ₱799
