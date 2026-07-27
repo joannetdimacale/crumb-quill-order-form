@@ -1,10 +1,10 @@
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xojzvzdn";
 
 const products = [
-  { id: "cookie-classic", category: "cookies", name: "Classic Chocolate Chip", price: 369, note: "Box of 6 — 50g each" },
-  { id: "cookie-walnut", category: "cookies", name: "Chocolate Walnut", price: 399, note: "Box of 6 — 50g each" },
-  { id: "cookie-espresso", category: "cookies", name: "Espresso Chocolate", price: 369, note: "Box of 6 — 50g each" },
-  { id: "cookie-red-velvet", category: "cookies", name: "Red Velvet Cream Cheese", price: 429, note: "Box of 6 — 50g each", badge: "New" },
+  { id: "cookie-classic", category: "cookies", name: "Classic Chocolate Chip", price: 369, note: "Box of 6 — 70g each" },
+  { id: "cookie-walnut", category: "cookies", name: "Chocolate Walnut", price: 399, note: "Box of 6 — 70g each" },
+  { id: "cookie-espresso", category: "cookies", name: "Espresso Chocolate", price: 369, note: "Box of 6 — 70g each" },
+  { id: "cookie-red-velvet", category: "cookies", name: "Red Velvet Cream Cheese", price: 429, note: "Box of 6 — 70g each", badge: "New" },
   { id: "cookie-assorted", category: "cookies", name: "Regular Assorted Box", price: 399, note: "Mixed regular flavors, box of 6" },
 
   { id: "premium-matcha-cloud", category: "cookies", name: "Strawberry Matcha Cloud", price: 649, note: "Premium stuffed cookies, box of 6", badge: "Weekly" },
