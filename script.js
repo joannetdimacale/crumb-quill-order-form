@@ -4,21 +4,21 @@ const products = [
   { id: "cookie-classic", category: "cookies", name: "Classic Chocolate Chip", price: 369, note: "Box of 6 — 70g each" },
   { id: "cookie-walnut", category: "cookies", name: "Chocolate Walnut", price: 399, note: "Box of 6 — 70g each" },
   { id: "cookie-espresso", category: "cookies", name: "Espresso Chocolate", price: 369, note: "Box of 6 — 70g each" },
-  { id: "cookie-red-velvet", category: "cookies", name: "Red Velvet Cream Cheese", price: 429, note: "Box of 6 — 70g each", badge: "New" },
+  { id: "cookie-red-velvet", category: "cookies", name: "Red Velvet Cream Cheese", price: 429, note: "Box of 6 — 70g each" },
   { id: "cookie-assorted", category: "cookies", name: "Regular Assorted Box", price: 399, note: "Mixed regular flavors, box of 6" },
 
-  { id: "premium-matcha-cloud", category: "cookies", name: "Strawberry Matcha Cloud", price: 649, note: "Premium stuffed cookies, box of 6", badge: "Weekly" },
-  { id: "premium-biscoff-affair", category: "cookies", name: "The Biscoff Affair", price: 699, note: "Premium stuffed cookies, box of 6", badge: "Weekly" },
-  { id: "premium-signature-assorted", category: "cookies", name: "Signature Assorted Box", price: 679, note: "3 Strawberry Matcha Cloud + 3 Biscoff Affair", badge: "Weekly" },
+  { id: "premium-matcha-cloud", category: "cookies", name: "Strawberry Matcha Cloud", price: 649, note: "Premium stuffed cookies, box of 6" },
+  { id: "premium-biscoff-affair", category: "cookies", name: "The Biscoff Affair", price: 699, note: "Premium stuffed cookies, box of 6" },
+  { id: "premium-signature-assorted", category: "cookies", name: "Signature Assorted Box", price: 679, note: "3 Strawberry Matcha Cloud + 3 Biscoff Affair" },
 
   { id: "rolls-4-classic", category: "rolls", name: "Classic Cream Cheese", price: 420, note: "Box of 4" },
   { id: "rolls-4-strawberry", category: "rolls", name: "Strawberry Cheesecake", price: 549, note: "Box of 4" },
   { id: "rolls-4-assorted", category: "rolls", name: "Assorted Box", price: 519, note: "2 Classic + 2 Strawberry" },
-  { id: "rolls-4-cookie-dough", category: "rolls", name: "Cookie Dough Cinnamon Roll", price: 549, note: "Box of 4", badge: "New" },
+  { id: "rolls-4-cookie-dough", category: "rolls", name: "Cookie Dough Cinnamon Roll", price: 549, note: "Box of 4" },
   { id: "rolls-6-classic", category: "rolls", name: "Classic Cream Cheese", price: 649, note: "Box of 6" },
   { id: "rolls-6-strawberry", category: "rolls", name: "Strawberry Cheesecake", price: 779, note: "Box of 6" },
   { id: "rolls-6-assorted", category: "rolls", name: "Assorted Box", price: 739, note: "3 Classic + 3 Strawberry" },
-  { id: "rolls-6-cookie-dough", category: "rolls", name: "Cookie Dough Cinnamon Roll", price: 799, note: "Box of 6", badge: "New" },
+  { id: "rolls-6-cookie-dough", category: "rolls", name: "Cookie Dough Cinnamon Roll", price: 799, note: "Box of 6" },
 
   { id: "cupcakes-4", category: "cupcakes", name: "Banana Cupcakes", price: 360, note: "Box of 4" },
   { id: "cupcakes-6", category: "cupcakes", name: "Banana Cupcakes", price: 520, note: "Box of 6" }
