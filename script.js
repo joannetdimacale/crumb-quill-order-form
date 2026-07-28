@@ -55,7 +55,18 @@ const customRollPrices = {
   4: 549,
   6: 779
 };
+const customCookieRates = {
+  classic: 369 / 6,
+  walnut: 399 / 6,
+  espresso: 369 / 6,
+  redVelvet: 429 / 6,
+  matcha: 649 / 6,
+  biscoff: 699 / 6
+};
 
+function roundCookieCustomPrice(amount) {
+  return Math.ceil((amount - 9) / 10) * 10 + 9;
+}
 const grids = {
   cookies: document.querySelector("#cookies-grid"),
   rolls: document.querySelector("#rolls-grid"),
@@ -93,6 +104,71 @@ products
   .forEach((product) => {
     grids[product.category].insertAdjacentHTML("beforeend", productCard(product));
   });
+
+grids.cookies.insertAdjacentHTML(
+  "beforeend",
+  `
+  <article class="product-card custom-cookie-card" id="custom-cookie-card">
+    <div class="product-top">
+      <div>
+        <div class="product-name">Build Your Own Cookie Box</div>
+        <small>Pick any 6 cookies from our lineup</small>
+      </div>
+
+      <div class="price" id="custom-cookie-price">₱0</div>
+    </div>
+
+    <div class="custom-flavors">
+      <label>
+        Classic Chocolate Chip
+        <input id="custom-cookie-classic" type="number" min="0" max="6" value="0" inputmode="numeric">
+      </label>
+
+      <label>
+        Chocolate Walnut
+        <input id="custom-cookie-walnut" type="number" min="0" max="6" value="0" inputmode="numeric">
+      </label>
+
+      <label>
+        Double Chocolate Espresso
+        <input id="custom-cookie-espresso" type="number" min="0" max="6" value="0" inputmode="numeric">
+      </label>
+
+      <label>
+        Red Velvet Cream Cheese
+        <input id="custom-cookie-red-velvet" type="number" min="0" max="6" value="0" inputmode="numeric">
+      </label>
+
+      <label>
+        Strawberry Matcha Cloud
+        <input id="custom-cookie-matcha" type="number" min="0" max="6" value="0" inputmode="numeric">
+      </label>
+
+      <label>
+        The Biscoff Affair
+        <input id="custom-cookie-biscoff" type="number" min="0" max="6" value="0" inputmode="numeric">
+      </label>
+    </div>
+
+    <small id="custom-cookie-status">0/6 cookies selected</small>
+
+    <div class="qty-control">
+      <button type="button" data-custom-cookie-action="decrease">−</button>
+
+      <input
+        id="custom-cookie-box-qty"
+        type="number"
+        min="0"
+        value="0"
+        inputmode="numeric"
+        aria-label="Custom cookie box quantity"
+      >
+
+      <button type="button" data-custom-cookie-action="increase">+</button>
+    </div>
+  </article>
+  `
+);
 
 function rollGroupCard(group) {
   const options = group.options
@@ -270,7 +346,95 @@ function updateCustomRollBox() {
 
   updateSummary();
 }
+function getCustomCookieData() {
+  const counts = {
+    classic: Number(document.querySelector("#custom-cookie-classic")?.value || 0),
+    walnut: Number(document.querySelector("#custom-cookie-walnut")?.value || 0),
+    espresso: Number(document.querySelector("#custom-cookie-espresso")?.value || 0),
+    redVelvet: Number(document.querySelector("#custom-cookie-red-velvet")?.value || 0),
+    matcha: Number(document.querySelector("#custom-cookie-matcha")?.value || 0),
+    biscoff: Number(document.querySelector("#custom-cookie-biscoff")?.value || 0)
+  };
 
+  const totalCookies = Object.values(counts).reduce(
+    (sum, qty) => sum + qty,
+    0
+  );
+
+  const flavorCount = Object.values(counts).filter(
+    (qty) => qty > 0
+  ).length;
+
+  const rawPrice =
+    counts.classic * customCookieRates.classic +
+    counts.walnut * customCookieRates.walnut +
+    counts.espresso * customCookieRates.espresso +
+    counts.redVelvet * customCookieRates.redVelvet +
+    counts.matcha * customCookieRates.matcha +
+    counts.biscoff * customCookieRates.biscoff;
+
+  const price =
+    totalCookies === 6
+      ? roundCookieCustomPrice(rawPrice)
+      : 0;
+
+  return {
+    counts,
+    totalCookies,
+    flavorCount,
+    price
+  };
+}
+
+function customCookieIsValid() {
+  const data = getCustomCookieData();
+
+  return (
+    data.totalCookies === 6 &&
+    data.flavorCount >= 2
+  );
+}
+
+function updateCustomCookieBox() {
+  const data = getCustomCookieData();
+
+  const priceEl =
+    document.querySelector("#custom-cookie-price");
+
+  const statusEl =
+    document.querySelector("#custom-cookie-status");
+
+  if (priceEl) {
+    priceEl.textContent =
+      data.totalCookies === 6
+        ? peso.format(data.price)
+        : "₱0";
+  }
+
+  if (!statusEl) return;
+
+  if (data.totalCookies > 6) {
+    statusEl.textContent =
+      `${data.totalCookies}/6 cookies selected — too many`;
+  } else if (
+    data.totalCookies === 6 &&
+    data.flavorCount < 2
+  ) {
+    statusEl.textContent =
+      "Please choose at least 2 flavors.";
+  } else if (
+    data.totalCookies === 6 &&
+    data.flavorCount >= 2
+  ) {
+    statusEl.textContent =
+      `6/6 cookies selected ✓`;
+  } else {
+    statusEl.textContent =
+      `${data.totalCookies}/6 cookies selected`;
+  }
+
+  updateSummary();
+}
 function getSelections() {
   const selections = [];
 
@@ -333,6 +497,40 @@ function getSelections() {
       subtotal: customQty * price
     });
   }
+const customCookieBoxQty = Number(
+  document.querySelector("#custom-cookie-box-qty")?.value || 0
+);
+
+if (
+  customCookieBoxQty > 0 &&
+  customCookieIsValid()
+) {
+  const data = getCustomCookieData();
+
+  const names = {
+    classic: "Classic",
+    walnut: "Walnut",
+    espresso: "Espresso",
+    redVelvet: "Red Velvet",
+    matcha: "Matcha Cloud",
+    biscoff: "Biscoff Affair"
+  };
+
+  const note = Object.entries(data.counts)
+    .filter(([, qty]) => qty > 0)
+    .map(([flavor, qty]) => `${qty} ${names[flavor]}`)
+    .join(" + ");
+
+  selections.push({
+    id: "custom-cookie-box",
+    category: "cookies",
+    name: "Build Your Own Cookie Box",
+    price: data.price,
+    note,
+    qty: customCookieBoxQty,
+    subtotal: customCookieBoxQty * data.price
+  });
+}
 
   return selections;
 }
@@ -402,7 +600,53 @@ document.addEventListener("click", (event) => {
 
   updateSummary();
 });
+document.addEventListener("click", (event) => {
+  const button = event.target.closest(
+    "button[data-custom-cookie-action]"
+  );
 
+  if (!button) return;
+
+  const input = document.querySelector(
+    "#custom-cookie-box-qty"
+  );
+
+  const current = Number(input.value || 0);
+
+  if (
+    button.dataset.customCookieAction === "increase"
+  ) {
+    input.value = current + 1;
+  }
+
+  if (
+    button.dataset.customCookieAction === "decrease"
+  ) {
+    input.value = Math.max(0, current - 1);
+  }
+
+  updateSummary();
+});
+document.addEventListener("input", (event) => {
+  if (
+    event.target.matches(
+      "#custom-cookie-classic, " +
+      "#custom-cookie-walnut, " +
+      "#custom-cookie-espresso, " +
+      "#custom-cookie-red-velvet, " +
+      "#custom-cookie-matcha, " +
+      "#custom-cookie-biscoff"
+    )
+  ) {
+    updateCustomCookieBox();
+  }
+
+  if (
+    event.target.matches("#custom-cookie-box-qty")
+  ) {
+    updateSummary();
+  }
+});
 document.addEventListener("change", (event) => {
   if (event.target.matches(".roll-size")) {
     updateSummary();
@@ -449,6 +693,20 @@ if (customBoxQty > 0 && !customRollIsValid()) {
   return;
 }
 
+  const customCookieBoxQty = Number(
+  document.querySelector("#custom-cookie-box-qty")?.value || 0
+);
+
+if (
+  customCookieBoxQty > 0 &&
+  !customCookieIsValid()
+) {
+  statusEl.textContent =
+    "Please complete your Build Your Own Cookie Box before submitting.";
+
+  statusEl.className = "error";
+  return;
+}  
   if (!getSelections().length) {
     statusEl.textContent = "Choose at least one box before submitting.";
     statusEl.className = "error";
