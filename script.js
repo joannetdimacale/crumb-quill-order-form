@@ -12,17 +12,49 @@ const products = [
   { id: "premium-signature-assorted", category: "cookies", name: "Signature Assorted Box", price: 679, note: "3 Strawberry Matcha Cloud + 3 Biscoff Affair" },
 
   { id: "rolls-4-classic", category: "rolls", name: "Classic Cream Cheese", price: 420, note: "Box of 4" },
-  { id: "rolls-4-strawberry", category: "rolls", name: "Strawberry Cheesecake", price: 549, note: "Box of 4" },
-  { id: "rolls-4-assorted", category: "rolls", name: "Assorted Box", price: 519, note: "2 Classic + 2 Strawberry" },
-  { id: "rolls-4-cookie-dough", category: "rolls", name: "Cookie Dough Cinnamon Roll", price: 549, note: "Box of 4" },
-  { id: "rolls-6-classic", category: "rolls", name: "Classic Cream Cheese", price: 649, note: "Box of 6" },
-  { id: "rolls-6-strawberry", category: "rolls", name: "Strawberry Cheesecake", price: 779, note: "Box of 6" },
-  { id: "rolls-6-assorted", category: "rolls", name: "Assorted Box", price: 739, note: "3 Classic + 3 Strawberry" },
-  { id: "rolls-6-cookie-dough", category: "rolls", name: "Cookie Dough Cinnamon Roll", price: 799, note: "Box of 6" },
+  { id: "rolls-6-classic", category: "rolls", name: "Classic Cream Cheese", price: 649, note: "Box of 6"},
 
+  { id: "rolls-4-strawberry", category: "rolls", name: "Strawberry Bloom", price: 549, note: "Box of 4"},
+  { id: "rolls-6-strawberry", category: "rolls", name: "Strawberry Bloom", price: 779, note: "Box of 6"},
+
+  { id: "rolls-4-cookie-dough", category: "rolls", name: "Cookie Dough Dream", price: 549, note: "Box of 4"},
+  { id: "rolls-6-cookie-dough", category: "rolls", name: "Cookie Dough Dream", price: 799, note: "Box of 6"},
+  
   { id: "cupcakes-4", category: "cupcakes", name: "Banana Cupcakes", price: 360, note: "Box of 4" },
   { id: "cupcakes-6", category: "cupcakes", name: "Banana Cupcakes", price: 520, note: "Box of 6" }
+  
 ];
+const rollGroups = [
+  {
+    id: "classic",
+    name: "Classic Cream Cheese",
+    options: [
+      { productId: "rolls-4-classic", label: "Box of 4", price: 420 },
+      { productId: "rolls-6-classic", label: "Box of 6", price: 649 }
+    ]
+  },
+  {
+    id: "strawberry",
+    name: "Strawberry Bloom",
+    options: [
+      { productId: "rolls-4-strawberry", label: "Box of 4", price: 549 },
+      { productId: "rolls-6-strawberry", label: "Box of 6", price: 779 }
+    ]
+  },
+  {
+    id: "cookie-dough",
+    name: "Cookie Dough Dream",
+    options: [
+      { productId: "rolls-4-cookie-dough", label: "Box of 4", price: 549 },
+      { productId: "rolls-6-cookie-dough", label: "Box of 6", price: 779 }
+    ]
+  }
+];
+
+const customRollPrices = {
+  4: 549,
+  6: 779
+};
 
 const grids = {
   cookies: document.querySelector("#cookies-grid"),
@@ -56,9 +88,98 @@ function productCard(product) {
   `;
 }
 
-products.forEach((product) => {
-  grids[product.category].insertAdjacentHTML("beforeend", productCard(product));
+products
+  .filter((product) => product.category !== "rolls")
+  .forEach((product) => {
+    grids[product.category].insertAdjacentHTML("beforeend", productCard(product));
+  });
+
+function rollGroupCard(group) {
+  const options = group.options
+    .map(
+      (option) =>
+        `<option value="${option.productId}">
+          ${option.label} — ${peso.format(option.price)}
+        </option>`
+    )
+    .join("");
+
+  return `
+    <article class="product-card roll-group-card" data-roll-group="${group.id}">
+      <div class="product-top">
+        <div>
+          <div class="product-name">${group.name}</div>
+          <small>Choose your box size</small>
+        </div>
+      </div>
+
+      <label>
+        <span>Box size</span>
+        <select class="roll-size">
+          ${options}
+        </select>
+      </label>
+
+      <div class="qty-control">
+        <button type="button" data-action="decrease" aria-label="Decrease ${group.name}">−</button>
+        <input type="number" min="0" value="0" inputmode="numeric" aria-label="${group.name} quantity" />
+        <button type="button" data-action="increase" aria-label="Increase ${group.name}">+</button>
+      </div>
+    </article>
+  `;
+}
+
+rollGroups.forEach((group) => {
+  grids.rolls.insertAdjacentHTML("beforeend", rollGroupCard(group));
 });
+
+grids.rolls.insertAdjacentHTML(
+  "beforeend",
+  `
+  <article class="product-card custom-roll-card" id="custom-roll-card">
+    <div class="product-top">
+      <div>
+        <div class="product-name">Build Your Own Box</div>
+        <small>Choose your box size and mix your flavors</small>
+      </div>
+      <div class="price" id="custom-roll-price">${peso.format(549)}</div>
+    </div>
+
+    <label>
+      <span>Box size</span>
+      <select id="custom-roll-size">
+        <option value="4">Box of 4 — ${peso.format(549)}</option>
+        <option value="6">Box of 6 — ${peso.format(779)}</option>
+      </select>
+    </label>
+
+    <div class="custom-flavors">
+      <label>
+        Classic Cream Cheese
+        <input id="custom-classic" type="number" min="0" value="0" inputmode="numeric">
+      </label>
+
+      <label>
+        Strawberry Bloom
+        <input id="custom-strawberry" type="number" min="0" value="0" inputmode="numeric">
+      </label>
+
+      <label>
+        Cookie Dough Dream
+        <input id="custom-cookie-dough" type="number" min="0" value="0" inputmode="numeric">
+      </label>
+    </div>
+
+    <small id="custom-roll-status">Choose exactly 4 rolls.</small>
+
+    <div class="qty-control">
+      <button type="button" data-custom-action="decrease">−</button>
+      <input id="custom-roll-box-qty" type="number" min="0" value="0" inputmode="numeric">
+      <button type="button" data-custom-action="increase">+</button>
+    </div>
+  </article>
+  `
+);
 
 const welcomeScreen = document.querySelector("#welcome-screen");
 const enterBtn = document.querySelector("#enter-btn");
@@ -111,14 +232,109 @@ function populateFridays() {
   }
 }
 
+function customRollIsValid() {
+  const sizeEl = document.querySelector("#custom-roll-size");
+  if (!sizeEl) return true;
+
+  const size = Number(sizeEl.value);
+
+  const classic = Number(document.querySelector("#custom-classic").value || 0);
+  const strawberry = Number(document.querySelector("#custom-strawberry").value || 0);
+  const cookieDough = Number(document.querySelector("#custom-cookie-dough").value || 0);
+
+  return classic + strawberry + cookieDough === size;
+}
+
+function updateCustomRollBox() {
+  const sizeEl = document.querySelector("#custom-roll-size");
+  if (!sizeEl) return;
+
+  const size = Number(sizeEl.value);
+  const price = customRollPrices[size];
+
+  const classic = Number(document.querySelector("#custom-classic").value || 0);
+  const strawberry = Number(document.querySelector("#custom-strawberry").value || 0);
+  const cookieDough = Number(document.querySelector("#custom-cookie-dough").value || 0);
+
+  const selected = classic + strawberry + cookieDough;
+
+  document.querySelector("#custom-roll-price").textContent = peso.format(price);
+
+  const status = document.querySelector("#custom-roll-status");
+
+  if (selected === size) {
+    status.textContent = `${selected}/${size} rolls selected ✓`;
+  } else {
+    status.textContent = `${selected}/${size} rolls selected`;
+  }
+
+  updateSummary();
+}
+
 function getSelections() {
-  return products
-    .map((product) => {
+  const selections = [];
+
+  // Regular products: cookies and cupcakes
+  products
+    .filter((product) => product.category !== "rolls")
+    .forEach((product) => {
       const card = document.querySelector(`[data-product-id="${product.id}"]`);
+      if (!card) return;
+
       const qty = Number(card.querySelector("input").value || 0);
-      return { ...product, qty, subtotal: qty * product.price };
-    })
-    .filter((item) => item.qty > 0);
+
+      if (qty > 0) {
+        selections.push({
+          ...product,
+          qty,
+          subtotal: qty * product.price
+        });
+      }
+    });
+
+  // Cinnamon roll flavor cards
+  document.querySelectorAll(".roll-group-card").forEach((card) => {
+    const productId = card.querySelector(".roll-size").value;
+    const qty = Number(card.querySelector(".qty-control input").value || 0);
+
+    if (qty <= 0) return;
+
+    const product = products.find((item) => item.id === productId);
+    if (!product) return;
+
+    selections.push({
+      ...product,
+      qty,
+      subtotal: qty * product.price
+    });
+  });
+
+  // Custom cinnamon roll box
+  const customQty = Number(
+    document.querySelector("#custom-roll-box-qty")?.value || 0
+  );
+
+  if (customQty > 0 && customRollIsValid()) {
+    const size = Number(document.querySelector("#custom-roll-size").value);
+
+    const classic = Number(document.querySelector("#custom-classic").value || 0);
+    const strawberry = Number(document.querySelector("#custom-strawberry").value || 0);
+    const cookieDough = Number(document.querySelector("#custom-cookie-dough").value || 0);
+
+    const price = customRollPrices[size];
+
+    selections.push({
+      id: `custom-roll-${size}`,
+      category: "rolls",
+      name: "Build Your Own Cinnamon Roll Box",
+      price,
+      note: `${classic} Classic + ${strawberry} Strawberry + ${cookieDough} Cookie Dough`,
+      qty: customQty,
+      subtotal: customQty * price
+    });
+  }
+
+  return selections;
 }
 
 function updateSummary() {
@@ -156,14 +372,59 @@ document.addEventListener("click", (event) => {
   const input = card.querySelector("input");
   const current = Number(input.value || 0);
 
-  if (button.dataset.action === "increase") input.value = current + 1;
-  if (button.dataset.action === "decrease") input.value = Math.max(0, current - 1);
+  if (button.dataset.action === "increase") {
+    input.value = current + 1;
+  }
+
+  if (button.dataset.action === "decrease") {
+    input.value = Math.max(0, current - 1);
+  }
+
+  updateSummary();
+});
+document.addEventListener("input", (event) => {
+  if (event.target.closest(".qty-control")) updateSummary();
+});
+document.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-custom-action]");
+  if (!button) return;
+
+  const input = document.querySelector("#custom-roll-box-qty");
+  const current = Number(input.value || 0);
+
+  if (button.dataset.customAction === "increase") {
+    input.value = current + 1;
+  }
+
+  if (button.dataset.customAction === "decrease") {
+    input.value = Math.max(0, current - 1);
+  }
 
   updateSummary();
 });
 
+document.addEventListener("change", (event) => {
+  if (event.target.matches(".roll-size")) {
+    updateSummary();
+  }
+
+  if (event.target.matches("#custom-roll-size")) {
+    updateCustomRollBox();
+  }
+});
+
 document.addEventListener("input", (event) => {
-  if (event.target.closest(".qty-control")) updateSummary();
+  if (
+    event.target.matches(
+      "#custom-classic, #custom-strawberry, #custom-cookie-dough"
+    )
+  ) {
+    updateCustomRollBox();
+  }
+
+  if (event.target.matches("#custom-roll-box-qty")) {
+    updateSummary();
+  }
 });
 
 fulfillment.addEventListener("change", () => {
@@ -176,6 +437,17 @@ form.addEventListener("submit", async (event) => {
 
   statusEl.textContent = "";
   statusEl.className = "";
+
+  const customBoxQty = Number(
+  document.querySelector("#custom-roll-box-qty")?.value || 0
+);
+
+if (customBoxQty > 0 && !customRollIsValid()) {
+  statusEl.textContent =
+    "Please complete your custom cinnamon roll box before submitting.";
+  statusEl.className = "error";
+  return;
+}
 
   if (!getSelections().length) {
     statusEl.textContent = "Choose at least one box before submitting.";
