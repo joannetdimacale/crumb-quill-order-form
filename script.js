@@ -20,8 +20,8 @@ const products = [
   { id: "rolls-4-cookie-dough", category: "rolls", name: "Cookie Dough Dream", price: 549, note: "Box of 4"},
   { id: "rolls-6-cookie-dough", category: "rolls", name: "Cookie Dough Dream", price: 799, note: "Box of 6"},
   
-  { id: "cupcakes-4", category: "cupcakes", name: "Banana Cupcakes", price: 360, note: "Box of 4" },
-  { id: "cupcakes-6", category: "cupcakes", name: "Banana Cupcakes", price: 520, note: "Box of 6" }
+  { id: "muffin-4", category: "muffin", name: "Banana Walnut Crumb Muffins", price: 360, note: "Box of 4" },
+  { id: "muffin-6", category: "muffin", name: "Banana Walnut Crumb Muffins", price: 520, note: "Box of 6" }
   
 ];
 const rollGroups = [
