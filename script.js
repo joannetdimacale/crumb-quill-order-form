@@ -102,7 +102,16 @@ function productCard(product) {
 products
   .filter((product) => product.category !== "rolls")
   .forEach((product) => {
-    grids[product.category].insertAdjacentHTML("beforeend", productCard(product));
+   console.log("Rendering:", product.id, product.category, grids[product.category]);
+
+    if (!grids[product.category]) {
+      console.error("MISSING GRID:", product.id, product.category);
+      return;
+    }
+    grids[product.category].insertAdjacentHTML(
+      "beforeend",
+      productCard(product)
+      );
   });
 
 grids.cookies.insertAdjacentHTML(
