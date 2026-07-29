@@ -20,8 +20,8 @@ const products = [
   { id: "rolls-4-cookie-dough", category: "rolls", name: "Cookie Dough Dream", price: 549, note: "Box of 4"},
   { id: "rolls-6-cookie-dough", category: "rolls", name: "Cookie Dough Dream", price: 799, note: "Box of 6"},
   
-  { id: "muffin-4", category: "muffin", name: "Banana Walnut Crumb Muffins", price: 360, note: "Box of 4" },
-  { id: "muffin-6", category: "muffin", name: "Banana Walnut Crumb Muffins", price: 520, note: "Box of 6" }
+  { id: "muffin-4", category: "muffin", name: "Banana Walnut Crumb Muffin", price: 360, note: "Box of 4" },
+  { id: "muffin-6", category: "muffin", name: "Banana Walnut Crumb Muffin", price: 520, note: "Box of 6" }
   
 ];
 const rollGroups = [
@@ -70,7 +70,7 @@ function roundCookieCustomPrice(amount) {
 const grids = {
   cookies: document.querySelector("#cookies-grid"),
   rolls: document.querySelector("#rolls-grid"),
-  cupcakes: document.querySelector("#cupcakes-grid")
+  cupcakes: document.querySelector("#muffin-grid")
 };
 
 const peso = new Intl.NumberFormat("en-PH", {
