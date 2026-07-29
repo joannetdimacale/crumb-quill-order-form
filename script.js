@@ -447,7 +447,7 @@ function updateCustomCookieBox() {
 function getSelections() {
   const selections = [];
 
-  // Regular products: cookies and cupcakes
+  // Regular products: cookies and muffins
   products
     .filter((product) => product.category !== "rolls")
     .forEach((product) => {
