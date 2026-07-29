@@ -70,7 +70,7 @@ function roundCookieCustomPrice(amount) {
 const grids = {
   cookies: document.querySelector("#cookies-grid"),
   rolls: document.querySelector("#rolls-grid"),
-  cupcakes: document.querySelector("#muffin-grid")
+  muffin: document.querySelector("#muffin-grid")
 };
 
 const peso = new Intl.NumberFormat("en-PH", {
