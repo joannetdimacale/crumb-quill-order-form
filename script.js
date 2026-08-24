@@ -17,6 +17,9 @@ const products = [
   { id: "rolls-4-strawberry", category: "rolls", name: "Strawberry Bloom", price: 549, note: "Box of 4"},
   { id: "rolls-6-strawberry", category: "rolls", name: "Strawberry Bloom", price: 779, note: "Box of 6"},
 
+  { id: "rolls-4-ensaymada", category: "rolls", name: "Ensaymada Rolls", price: 399, note: "Box of 4"},
+  { id: "rolls-6-ensaymada", category: "rolls", name: "Ensaymada Rolls", price: 599, note: "Box of 6"},
+
   { id: "rolls-4-cookie-dough", category: "rolls", name: "Cookie Dough Dream", price: 549, note: "Box of 4"},
   { id: "rolls-6-cookie-dough", category: "rolls", name: "Cookie Dough Dream", price: 799, note: "Box of 6"},
   
@@ -48,6 +51,14 @@ const rollGroups = [
       { productId: "rolls-4-cookie-dough", label: "Box of 4", price: 549 },
       { productId: "rolls-6-cookie-dough", label: "Box of 6", price: 779 }
     ]
+  },
+  {
+    id: "ensaymada",
+    name: "Ensaymada Rolls",
+    options: [
+      {productId: "rolls-4-ensaymada", label: "Box of 4", price: 399 },
+      {productId: "rolls-6-ensaymada", label: "Box of 6", price: 599 }
+      ]
   }
 ];
 
@@ -253,6 +264,11 @@ grids.rolls.insertAdjacentHTML(
         Cookie Dough Dream
         <input id="custom-cookie-dough" type="number" min="0" value="0" inputmode="numeric">
       </label>
+
+      <label>
+      Ensaymada Rolls
+      <input id="custom-ensaymada" type="number" min="0" value="0" inputmode="numeric">
+      </label>
     </div>
 
     <small id="custom-roll-status">Choose exactly 4 rolls.</small>
@@ -326,8 +342,9 @@ function customRollIsValid() {
   const classic = Number(document.querySelector("#custom-classic").value || 0);
   const strawberry = Number(document.querySelector("#custom-strawberry").value || 0);
   const cookieDough = Number(document.querySelector("#custom-cookie-dough").value || 0);
+  const ensaymada = Number(document.querySelector("#custom-ensaymada").value || 0);
 
-  return classic + strawberry + cookieDough === size;
+  return  classic + strawberry + cookieDough + ensaymada === size;
 }
 
 function updateCustomRollBox() {
@@ -340,8 +357,9 @@ function updateCustomRollBox() {
   const classic = Number(document.querySelector("#custom-classic").value || 0);
   const strawberry = Number(document.querySelector("#custom-strawberry").value || 0);
   const cookieDough = Number(document.querySelector("#custom-cookie-dough").value || 0);
+  const ensaymada = Number(document.querySelector("#custom-ensaymada").value ||0);
 
-  const selected = classic + strawberry + cookieDough;
+  const selected = classic + strawberry + cookieDough + ensaymada;
 
   document.querySelector("#custom-roll-price").textContent = peso.format(price);
 
@@ -493,6 +511,7 @@ function getSelections() {
     const classic = Number(document.querySelector("#custom-classic").value || 0);
     const strawberry = Number(document.querySelector("#custom-strawberry").value || 0);
     const cookieDough = Number(document.querySelector("#custom-cookie-dough").value || 0);
+    const ensaymada = Number(document.querySelector("#custom-ensaymada").value || 0)
 
     const price = customRollPrices[size];
 
@@ -501,7 +520,7 @@ function getSelections() {
       category: "rolls",
       name: "Build Your Own Cinnamon Roll Box",
       price,
-      note: `${classic} Classic + ${strawberry} Strawberry + ${cookieDough} Cookie Dough`,
+      note: `${classic} Classic + ${strawberry} Strawberry + ${cookieDough} Cookie Dough + ${ensaymada} Ensaymada`,
       qty: customQty,
       subtotal: customQty * price
     });
